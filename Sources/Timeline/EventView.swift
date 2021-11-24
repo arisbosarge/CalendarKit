@@ -109,6 +109,7 @@ open class EventView: UIView {
     return super.hitTest(point, with: event)
   }
 
+    /*
   override open func draw(_ rect: CGRect) {
     super.draw(rect)
     guard let context = UIGraphicsGetCurrentContext() else {
@@ -128,7 +129,7 @@ open class EventView: UIView {
     context.strokePath()
     context.restoreGState()
   }
-
+*/
   private var drawsShadow = false
 
   override open func layoutSubviews() {
