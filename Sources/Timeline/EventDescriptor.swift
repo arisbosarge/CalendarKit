@@ -1,13 +1,13 @@
 import Foundation
 import UIKit
 
-public enum EventType {
+public enum CalEventType {
     case standard
     case customized
 }
 
 public protocol EventDescriptor: AnyObject {
-    var eventViewType: EventType {get}
+    var eventViewType: CalEventType {get}
     var customEventView: UIView? {get}
     func updateCustomEventView()
     
