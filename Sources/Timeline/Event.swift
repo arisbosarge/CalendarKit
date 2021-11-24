@@ -1,6 +1,10 @@
 import UIKit
 
 public final class Event: EventDescriptor {
+    public var eventViewType: CalEventType { .standard }
+    public var customEventView: UIView? { nil }
+    public func updateCustomEventView() { }
+    
   public var startDate = Date()
   public var endDate = Date()
   public var isAllDay = false

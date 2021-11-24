@@ -162,10 +162,10 @@ open class EventView: UIView {
           last?.frame = CGRect(origin: CGPoint(x: bounds.midX - 60 + layoutMargins.left, y: height - yPad - radius),
                                size: size)
           if first != nil {
-              bringSubview(toFront: first!)
+              bringSubviewToFront(first!)
           }
           if last != nil {
-              bringSubview(toFront: last!)
+              bringSubviewToFront(last!)
           }
       } else {
     first?.frame = CGRect(origin: CGPoint(x: width - radius - layoutMargins.right, y: yPad),
