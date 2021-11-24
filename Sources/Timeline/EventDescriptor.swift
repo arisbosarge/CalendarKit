@@ -1,7 +1,16 @@
 import Foundation
 import UIKit
 
+public enum EventType {
+    case standard
+    case customized
+}
+
 public protocol EventDescriptor: AnyObject {
+    var eventViewType: EventType {get}
+    var customEventView: UIView? {get}
+    func updateCustomEventView()
+    
   var startDate: Date {get set}
   var endDate: Date {get set}
   var isAllDay: Bool {get}

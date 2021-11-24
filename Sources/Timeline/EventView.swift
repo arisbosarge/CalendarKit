@@ -39,6 +39,11 @@ open class EventView: UIView {
       handle.tag = idx
       addSubview(handle)
     }
+      
+      if descriptor?.eventViewType == .customized, descriptor?.customEventView != nil {
+          textView.isHidden = true
+          addSubview(descriptor!.customEventView!)
+      }
   }
 
   public func updateWithDescriptor(event: EventDescriptor) {
@@ -53,6 +58,15 @@ open class EventView: UIView {
       textView.textContainer.lineBreakMode = lineBreakMode
     }
     descriptor = event
+      if descriptor?.eventViewType == .customized {
+          self.subviews.first(where: {$0.tag == 8888})?.removeFromSuperview()
+          addSubview(descriptor!.customEventView!)
+          descriptor?.updateCustomEventView()
+          textView.isHidden = true
+      } else {
+          textView.isHidden = false
+      }
+      
     backgroundColor = event.backgroundColor
     color = event.color
     eventResizeHandles.forEach{
@@ -119,6 +133,9 @@ open class EventView: UIView {
 
   override open func layoutSubviews() {
     super.layoutSubviews()
+      if descriptor?.eventViewType == .customized {
+          descriptor?.customEventView?.frame = CGRect(x: bounds.midX - 60, y: 0, width: 120, height: bounds.height)
+      }
     textView.frame = {
         if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
             return CGRect(x: bounds.minX, y: bounds.minY, width: bounds.width - 3, height: bounds.height)
@@ -139,11 +156,24 @@ open class EventView: UIView {
     let width = bounds.width
     let height = bounds.height
     let size = CGSize(width: radius, height: radius)
+      if descriptor?.eventViewType == .customized {
+          first?.frame = CGRect(origin: CGPoint(x: bounds.midX + 60 - radius - layoutMargins.right, y: yPad),
+                                size: size)
+          last?.frame = CGRect(origin: CGPoint(x: bounds.midX - 60 + layoutMargins.left, y: height - yPad - radius),
+                               size: size)
+          if first != nil {
+              bringSubview(toFront: first!)
+          }
+          if last != nil {
+              bringSubview(toFront: last!)
+          }
+      } else {
     first?.frame = CGRect(origin: CGPoint(x: width - radius - layoutMargins.right, y: yPad),
                           size: size)
     last?.frame = CGRect(origin: CGPoint(x: layoutMargins.left, y: height - yPad - radius),
                          size: size)
-    
+      }
+      
     if drawsShadow {
       applySketchShadow(alpha: 0.13,
                         blur: 10)

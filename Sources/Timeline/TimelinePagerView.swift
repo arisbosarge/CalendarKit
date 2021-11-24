@@ -329,6 +329,8 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
       let date = timeline.yToDate(converted.y + eventHeight)
       timeline.accentedDate = date
       timeline.setNeedsDisplay()
+        editedEventView?.descriptor?.startDate = date
+        editedEventView?.descriptor?.updateCustomEventView()
     }
   }
 
@@ -392,10 +394,14 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
     editedEventView?.eventResizeHandles.forEach{$0.panGestureRecognizer.removeTarget(self, action: nil)}
     editedEventView?.removeFromSuperview()
     editedEventView = nil
+      if editedEvent != nil, editedEvent?.eventViewType == .customized {
+          editedEvent?.customEventView?.isHidden = false
+      }
     editedEvent = nil
   }
 
   @objc private func timelineDidLongPress(_ sender: UILongPressGestureRecognizer) {
+      guard editedEventView?.descriptor?.eventViewType == .standard else { return }
     if sender.state == .ended {
       commitEditing()
     }
