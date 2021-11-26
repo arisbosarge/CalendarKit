@@ -38,7 +38,7 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
 
   public var autoScrollToFirstEvent = false
 
-  private var pagingViewController = UIPageViewController(transitionStyle: .scroll,
+  public var pagingViewController = UIPageViewController(transitionStyle: .scroll,
                                                   navigationOrientation: .horizontal,
                                                   options: nil)
   private var style = TimelineStyle()
