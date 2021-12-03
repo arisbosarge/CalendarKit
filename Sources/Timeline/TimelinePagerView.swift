@@ -329,7 +329,7 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
       let date = timeline.yToDate(converted.y + eventHeight)
       timeline.accentedDate = date
       timeline.setNeedsDisplay()
-        editedEventView?.descriptor?.startDate = date
+        editedEventView?.descriptor?.dateInterval = DateInterval(start: date, end: editedEventView?.descriptor?.dateInterval.end ?? date)
         editedEventView?.descriptor?.updateCustomEventView()
     }
   }
