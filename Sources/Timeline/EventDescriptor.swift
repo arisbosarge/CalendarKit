@@ -11,8 +11,7 @@ public protocol EventDescriptor: AnyObject {
     var customEventView: UIView? {get}
     func updateCustomEventView()
     
-  var startDate: Date {get set}
-  var endDate: Date {get set}
+  var dateInterval: DateInterval {get set}
   var isAllDay: Bool {get}
   var text: String {get}
   var attributedText: NSAttributedString? {get}

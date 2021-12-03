@@ -5,8 +5,7 @@ public final class Event: EventDescriptor {
     public var customEventView: UIView? { nil }
     public func updateCustomEventView() { }
     
-  public var startDate = Date()
-  public var endDate = Date()
+  public var dateInterval = DateInterval()
   public var isAllDay = false
   public var text = ""
   public var attributedText: NSAttributedString?
@@ -30,8 +29,7 @@ public final class Event: EventDescriptor {
 
   public func makeEditable() -> Event {
     let cloned = Event()
-    cloned.startDate = startDate
-    cloned.endDate = endDate
+    cloned.dateInterval = dateInterval
     cloned.isAllDay = isAllDay
     cloned.text = text
     cloned.attributedText = attributedText
@@ -46,8 +44,7 @@ public final class Event: EventDescriptor {
 
   public func commitEditing() {
     guard let edited = editedEvent else {return}
-    edited.startDate = startDate
-    edited.endDate = endDate
+    edited.dateInterval = dateInterval
   }
 
   private func updateColors() {
